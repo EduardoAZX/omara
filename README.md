@@ -1,24 +1,21 @@
-# Dra. Raquel Fialeki — Landing Page
+# Dra. Omara — Landing Page
 
-Landing page de captação de leads para a **Dra. Raquel Fialeki**, especialista em **Otomodelação** e responsável pelo método autoral **Otoslim** (correção de orelhas de abano sem cirurgia).
+Landing page de captação de leads para a **Dra. Omara**, especialista em **Harmonização Facial e Gerenciamento de Pele**, com foco em rejuvenescimento facial sem aspecto artificial (Zona Sul de São Paulo).
 
 ---
 
 ## 📁 Estrutura de pastas
 
 ```
-Raquel/
-├── index.html          # Estrutura semântica das 5 dobras + modais de Termos/Privacidade
-├── style.css            # Design system + componentes + responsividade
-├── app.js                # Reveals, máscara de WhatsApp, validação e submit do form, modais
-├── README.md             # Este arquivo
-├── obrigado/
-│   └── index.html        # Página de obrigado (redirecionada após o envio do formulário)
+Omara/
+├── index.html            # Estrutura semântica das 6 dobras + modais de Termos/Privacidade
+├── style.css              # Design system + componentes + responsividade
+├── app.js                  # Reveals, máscara de WhatsApp, validação e submit do form, FAQ, modais
+├── README.md                # Este arquivo
+├── obrigado.html             # Página de obrigado (redirecionada após o envio do formulário)
+├── .htaccess                  # Remoção de .html da URL + headers de segurança
 └── assets/
-    ├── img.webp                    # Hero (foto Dra. Raquel)
-    ├── dra-raquel-editorial.webp   # Foto editorial para a seção "Sobre"
-    ├── antes-01..04.webp           # Antes/depois — lado A
-    └── depois-01..04.webp          # Antes/depois — lado B
+    └── before-after-{1,2,3}-{antes,depois}.webp   # Pares de antes/depois dos 3 procedimentos
 ```
 
 > Todas as imagens referenciadas em `index.html` apontam para a pasta `assets/`.
@@ -27,67 +24,76 @@ Raquel/
 
 ## 🎨 Design system
 
-| Token            | Valor       | Uso                                        |
-|------------------|-------------|---------------------------------------------|
-| `--c-primary`    | `#EDBC8E`   | Botões, badges, destaques, gradiente quente |
-| `--c-secondary`  | `#EAE5D8`   | Fundos sutis, placeholders                  |
-| `--c-accent`     | `#1C1712`   | Texto principal, CTA escuro                 |
-| `--c-bg`         | `#FDFAF5`   | Fundo padrão                                |
-| `--c-text`       | `#1C1712`   | Texto                                       |
+| Token              | Valor        | Uso                                          |
+|---------------------|--------------|-----------------------------------------------|
+| `--c-primary`        | `#B76E79`    | Botões, badges, destaques (dourado-rosé)       |
+| `--c-primary-2`      | `#9C5B66`    | Gradientes, itálicos de destaque               |
+| `--c-secondary`      | `#F1E9E6`    | Fundos sutis, placeholders                     |
+| `--c-accent`         | `#141414`    | CTA escuro                                     |
+| `--c-bg`             | `#FAF7F5`    | Fundo padrão (off-white)                       |
+| `--c-text`           | `#141414`    | Texto principal (preto)                        |
+| `--c-muted`          | `#6B6B6B`    | Texto secundário                               |
+| `--c-line`           | `#E6DCDA`    | Bordas e divisores                             |
 
-- **Fontes:** Playfair Display (serif, headings) + Inter (sans, corpo) — via Google Fonts.
-- **Efeitos:** glassmorphism (`backdrop-filter: blur`), sombras suaves em camadas (`--shadow-sm/md/lg/glow`).
-- **Favicon:** SVG inline com a inicial **R** sobre o tom primário.
+- **Fontes:** Fraunces (serifada, títulos e itálicos de destaque) + Arimo (sans estilo Helvetica, corpo) — via Google Fonts.
+- **Efeitos:** glassmorphism (`backdrop-filter: blur`), sombras suaves em camadas (`--shadow-sm/md/lg/glow`), gradientes dourado-rosé nas seções de Formulário e Rodapé.
+- **Favicon:** SVG inline com a inicial **O** sobre o tom primário (dourado-rosé).
 
 ---
 
 ## 🧩 Seções da LP
 
 ### 🟠 Dobra 1 — Hero
-- **Imagens:** `assets/img.webp`.
-- CTA primário (`#agendar`) e CTA fantasma (`#resultados`).
+- **Imagens:** placeholder (`.hero__photo-fallback`) — inserir foto real da Dra. Omara em consultório.
+- CTA único: "Quero minha avaliação personalizada" (`#agendar`).
+- Marquee decorativo com os termos dos 3 procedimentos.
 
-### 🟠 Dobra 2 — Prova Social
-- **Imagens:** `assets/antes-0[1-4].webp` e `assets/depois-0[1-4].webp`.
-- Grid 2×2 de pares antes/depois com legenda.
+### 🟠 Dobra 2 — Transformações Reais
+- **Imagens:** `assets/before-after-1..3-antes.webp` / `-depois.webp` — pares reais de antes/depois exibidos lado a lado por card.
+- 3 cards: Perda de Sustentação (Recovery Facial), Aparência Cansada (Efeito Descansado), Qualidade da Pele (Gerenciamento de Colágeno).
 
 ### 🟠 Dobra 3 — Formulário (captação)
-- **Campos:** Nome, WhatsApp (máscara `(00) 00000-0000`), "Quem realizará o procedimento" (select).
-- Validação client-side em `app.js`. Ao validar com sucesso, redireciona para `obrigado/`.
-- **Sem integração de envio configurada no momento** — o formulário hoje não envia os dados para nenhum webhook/CRM/planilha. A integração (Make.com, GTM, etc.) será feita posteriormente.
+- **Campos:** Nome completo, WhatsApp (máscara `(00) 00000-0000`), E-mail, "Qual sinal mais incomoda você hoje?" (select).
+- Validação client-side em `app.js`. Ao validar com sucesso, envia para o webhook do Make e redireciona para `obrigado.html`.
+- **Webhook placeholder** — a URL do Make em `MAKE_WEBHOOK_URL` (`app.js`) é herdada do template e precisa ser substituída pela integração real da Dra. Omara.
 
-### 🟠 Dobra 4 — Sobre a Mentora
-- **Imagens:** `assets/dra-raquel-editorial.webp`.
-- Copy de autoridade + stats + CTA escuro.
+### 🟠 Dobra 4 — Autoridade (Dra. Omara)
+- **Imagens:** placeholder (`.about__photo-fallback`) — inserir foto espontânea/acolhedora da Dra. Omara.
+- Copy de autoridade (+20 anos, atendimento individualizado, ANVISA) + CTA escuro.
 
-### 🟠 Dobra 5 — Rodapé
-- Endereço da clínica.
-- Barra inferior: copyright + CRM, e links de Termos de Uso / Política de Privacidade (abrem em modal) / Desenvolvido por AZX Performance — dispostos lado a lado em telas desktop e empilhados em telas pequenas.
+### 🟠 Dobra 5 — FAQ
+- Acordeão com 3 perguntas frequentes (naturalidade, foco do tratamento, discrição).
+
+### 🟠 Dobra 6 — Rodapé
+- Localização (Ipiranga — Zona Sul de São Paulo).
+- Barra inferior: copyright + links de Termos de Uso / Política de Privacidade (abrem em modal) / Desenvolvido por AZX Performance.
 
 ---
 
 ## 📜 Termos de Uso & Política de Privacidade
 
-Acessíveis via modal a partir dos links no rodapé (`#openTerms` / `#openPrivacy`). A Política de Privacidade é redigida com base na **LGPD (Lei nº 13.709/2018)**, cobrindo: dados coletados, finalidade do tratamento, base legal, compartilhamento, armazenamento/segurança e direitos do titular.
+Acessíveis via modal a partir dos links no rodapé (`#openTerms` / `#openPrivacy`). A Política de Privacidade é redigida com base na **LGPD (Lei nº 13.709/2018)**, cobrindo: dados coletados (nome, WhatsApp, e-mail, sinal de interesse), finalidade do tratamento, base legal, compartilhamento, armazenamento/segurança e direitos do titular.
 
 ---
 
 ## 🔌 Integrações
 
-Google Tag Manager instalado (container `GTM-MJQJPGBC`), snippet no topo do `<head>` e o `<noscript>` logo após a abertura do `<body>` em `index.html`. Nenhum Pixel/Conversions API está instalado — caso necessário, o ponto de entrada é o submit handler em `app.js` (`form.addEventListener('submit', ...)`), logo após a validação client-side e antes do redirect para `obrigado/`.
+- **Google Tag Manager:** placeholder `GTM-XXXXXXX` no `<head>` e `<noscript>` de `index.html`/`obrigado.html` — substituir pelo container real antes de publicar. `obrigado.html` já dispara `dataLayer.push({event: 'lead'})` no carregamento, pronto pra virar trigger de conversão no GTM.
+- **Webhook (Make/CRM):** placeholder em `app.js` (`MAKE_WEBHOOK_URL`) — substituir antes de publicar.
+- **Meta Pixel / CAPI:** não instalado neste projeto.
 
 ---
 
 ## 📱 Responsividade
 
-| Faixa                | Comportamento                                          |
-|-----------------------|--------------------------------------------------------|
-| **≥ 1024px**          | Layouts em 2 colunas (hero, form, about); grid 2×2 nas provas |
-| **768–1023px**        | Mesmas grids mantidas, com `clamp()` reduzindo gaps     |
-| **≤ 880px**           | Hero, form e about colapsam para 1 coluna               |
-| **≤ 760px**           | Grid de provas vira 1 coluna                            |
-| **≤ 520px**           | Ajustes finos de tipografia e botões em largura total   |
-| **≤ 480px**           | Barra inferior do rodapé empilha em coluna              |
+| Faixa                | Comportamento                                                   |
+|-----------------------|------------------------------------------------------------------|
+| **≥ 981px**            | Layouts em 2 colunas (hero, form, about); grid de provas em 2 colunas |
+| **820–980px**          | Form e about colapsam para 1 coluna                               |
+| **≤ 880px**            | Hero colapsa para 1 coluna, foto centralizada                      |
+| **≤ 620px**            | Grid de provas vira 1 coluna                                        |
+| **≤ 520px**            | Tipografia e espaçamentos ampliados para leitura mobile; conteúdo centralizado (hero, sobre, formulário, cards, FAQ); inputs a 16px (evita zoom automático do iOS) |
+| **≤ 400px**            | Ajustes finos adicionais (stats em 2 colunas)                      |
 
 ---
 
@@ -96,7 +102,8 @@ Google Tag Manager instalado (container `GTM-MJQJPGBC`), snippet no topo do `<he
 - Sem `innerHTML`/`eval`/`document.write` no client-side (sem vetor de XSS via DOM).
 - Links externos (`target="_blank"`) sempre com `rel="noopener noreferrer"`.
 - Sem conteúdo via `http://` (mixed content).
-- Validação client-side do formulário em `app.js`; validação server-side deverá ser adicionada junto da integração de envio.
+- `.htaccess` com headers de segurança (X-Frame-Options, CSP, Referrer-Policy, etc.) e remoção de `.html` da URL.
+- Validação client-side do formulário em `app.js`; validação server-side deverá ser adicionada junto da integração de envio real.
 
 ---
 
@@ -105,7 +112,8 @@ Google Tag Manager instalado (container `GTM-MJQJPGBC`), snippet no topo do `<he
 - **Adicionar uma nova seção:** crie o markup dentro de `index.html` entre duas dobras existentes, atribua um `data-screen-label="NN Nome"` e adicione as classes ao final de `style.css` seguindo o padrão `.nome-secao__elemento`.
 - **Mudar a paleta:** edite as custom properties no topo de `style.css` (`:root`).
 - **Mudar copy:** todas as strings estão diretamente em `index.html` — sem CMS / template engine.
+- **Substituir fotos placeholder:** trocar os blocos `.hero__photo-fallback` e `.about__photo-fallback` por `<img>` reais dentro de `.hero__photo` e `.about__photo-frame`.
 
 ---
 
-© 2026 Dra. Raquel — Todos os direitos reservados.
+© 2026 Omara Estética e Saúde — Todos os direitos reservados.
